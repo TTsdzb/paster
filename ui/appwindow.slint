@@ -1,0 +1,57 @@
+import { Button, VerticalBox, HorizontalBox, ProgressIndicator, TextEdit, LineEdit } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    in-out property <string> input_text: "";
+    in-out property <string> secs: "5";
+    in-out property <bool> started: false;
+    in-out property <bool> canceled: false;
+    callback request-input();
+
+    title: "粘贴器";
+    
+    VerticalBox {
+        TextEdit {
+            min-height: 60px;
+            text <=> input_text;
+        }
+
+        HorizontalBox {
+            Text {
+                vertical-alignment: center;
+                text: "启动延迟：";
+            }
+            LineEdit {
+                width: 40px;
+                height: 30px;
+                input-type: number;
+                text <=> secs;
+                enabled: !started;
+            }
+            Text {
+                vertical-alignment: center;
+                text: "秒";
+            }
+            Rectangle {}
+            Button {
+                width: 70px;
+                height: 30px;
+                text: "开始";
+                clicked => {
+                    root.canceled = false;
+                    root.started = true;
+                    root.request-input();
+                }
+                enabled: !started;
+            }
+            Button {
+                width: 70px;
+                height: 30px;
+                text: "取消";
+                clicked => {
+                    root.canceled = true
+                }
+                enabled: started;
+            }
+        }
+    }
+}
