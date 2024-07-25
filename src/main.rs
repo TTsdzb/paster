@@ -4,15 +4,18 @@
 slint::include_modules!();
 
 use std::sync::mpsc::{self, Sender};
+use std::sync::{Arc, Mutex};
 use std::thread;
 use std::time::Duration;
 
+use enigo::*;
 use slint::{EventLoopError, SharedString, Weak};
 
 const ONE_SECOND: Duration = Duration::from_secs(1);
 
 fn main() -> Result<(), slint::PlatformError> {
     let ui = AppWindow::new()?;
+    let enigo = Arc::new(Mutex::new(Enigo::new(&Settings::default()).unwrap()));
 
     let ui_handle = ui.as_weak();
     ui.on_request_input(move || {
@@ -24,13 +27,23 @@ fn main() -> Result<(), slint::PlatformError> {
         println!("Text: {}", &input_text);
 
         // 释放一个新线程，避免界面无响应
-        thread::spawn(thread_callback(ui_handle.clone(), input_text, secs));
+        thread::spawn(thread_callback(
+            ui_handle.clone(),
+            enigo.clone(),
+            input_text,
+            secs,
+        ));
     });
 
     ui.run()
 }
 
-fn thread_callback(ui_handle: Weak<AppWindow>, input_text: SharedString, secs: u64) -> impl Fn() {
+fn thread_callback(
+    ui_handle: Weak<AppWindow>,
+    enigo: Arc<Mutex<Enigo>>,
+    input_text: SharedString,
+    secs: u64,
+) -> impl Fn() {
     move || {
         let (tx, rx) = mpsc::channel();
         let mut countdown = secs;
@@ -45,7 +58,10 @@ fn thread_callback(ui_handle: Weak<AppWindow>, input_text: SharedString, secs: u
             }
             display_secs(&ui_handle, countdown).unwrap();
         }
-        println!("{}", &input_text);
+
+        let mut enigo = enigo.lock().unwrap();
+        enigo.text(&input_text).unwrap();
+
         reset_ui(&ui_handle, secs).unwrap();
     }
 }
