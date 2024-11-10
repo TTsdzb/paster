@@ -1176,6 +1176,11 @@ dependencies = [
  "libc",
  "log",
  "objc2",
+ "tempfile",
+ "wayland-client",
+ "wayland-protocols-misc",
+ "wayland-protocols-plasma 0.2.0",
+ "wayland-protocols-wlr 0.2.0",
  "windows 0.56.0",
  "xkbcommon",
  "xkeysym",
@@ -2864,7 +2869,7 @@ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
 
 [[package]]
 name = "paster"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "enigo",
  "slint",
@@ -3552,8 +3557,8 @@ dependencies = [
  "wayland-client",
  "wayland-csd-frame",
  "wayland-cursor",
- "wayland-protocols",
- "wayland-protocols-wlr",
+ "wayland-protocols 0.32.3",
+ "wayland-protocols-wlr 0.3.3",
  "wayland-scanner",
  "xkeysym",
 ]
@@ -4237,6 +4242,18 @@ dependencies = [
 
 [[package]]
 name = "wayland-protocols"
+version = "0.31.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f81f365b8b4a97f422ac0e8737c438024b5951734506b0e1d775c73030561f4"
+dependencies = [
+ "bitflags 2.6.0",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-scanner",
+]
+
+[[package]]
+name = "wayland-protocols"
 version = "0.32.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62989625a776e827cc0f15d41444a3cea5205b963c3a25be48ae1b52d6b4daaa"
@@ -4244,6 +4261,32 @@ dependencies = [
  "bitflags 2.6.0",
  "wayland-backend",
  "wayland-client",
+ "wayland-scanner",
+]
+
+[[package]]
+name = "wayland-protocols-misc"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bfa5933740b200188c9b4c38601b8212e8c154d7de0d2cb171944e137a77de1e"
+dependencies = [
+ "bitflags 2.6.0",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols 0.31.2",
+ "wayland-scanner",
+]
+
+[[package]]
+name = "wayland-protocols-plasma"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23803551115ff9ea9bce586860c5c5a971e360825a0309264102a9495a5ff479"
+dependencies = [
+ "bitflags 2.6.0",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols 0.31.2",
  "wayland-scanner",
 ]
 
@@ -4256,7 +4299,20 @@ dependencies = [
  "bitflags 2.6.0",
  "wayland-backend",
  "wayland-client",
- "wayland-protocols",
+ "wayland-protocols 0.32.3",
+ "wayland-scanner",
+]
+
+[[package]]
+name = "wayland-protocols-wlr"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ad1f61b76b6c2d8742e10f9ba5c3737f6530b4c243132c2a2ccc8aa96fe25cd6"
+dependencies = [
+ "bitflags 2.6.0",
+ "wayland-backend",
+ "wayland-client",
+ "wayland-protocols 0.31.2",
  "wayland-scanner",
 ]
 
@@ -4269,7 +4325,7 @@ dependencies = [
  "bitflags 2.6.0",
  "wayland-backend",
  "wayland-client",
- "wayland-protocols",
+ "wayland-protocols 0.32.3",
  "wayland-scanner",
 ]
 
@@ -4718,8 +4774,8 @@ dependencies = [
  "wasm-bindgen-futures",
  "wayland-backend",
  "wayland-client",
- "wayland-protocols",
- "wayland-protocols-plasma",
+ "wayland-protocols 0.32.3",
+ "wayland-protocols-plasma 0.3.3",
  "web-sys",
  "web-time",
  "windows-sys 0.52.0",

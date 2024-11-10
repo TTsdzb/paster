@@ -22,4 +22,4 @@
 
 ### Linux
 
-Linux 情况比较复杂，请参阅 [`enigo` 文档](https://github.com/enigo-rs/enigo?tab=readme-ov-file#features)。视桌面环境而定，你可能需要安装依赖和/或启用额外的 feature 自行编译。
+支持 x11 与 Wayland，请参阅 [`enigo` 文档](https://github.com/enigo-rs/enigo?tab=readme-ov-file#features)。x11 需要安装额外依赖。Wayland 支持仅在试验阶段，可能出现意料之外的问题，且首次输入时需要授权。
